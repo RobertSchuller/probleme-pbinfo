@@ -11,12 +11,27 @@ namespace pbinfo
 {
     internal class Program
     {
-        static void SwapP180(ref int x, ref int y)
+            private static int divP1608(int x)
+        {
+            int cnt = 0;
+            for (int i = 1; i * i <= x; i++)
+            {
+                if (x % i == 0)
+                {
+                    cnt++;
+                    if (x / i != i)
+                        cnt++;
+                }
+            }
+            return cnt;
+        }
+            static void SwapP180(ref int x, ref int y)
         {
             int tempswap = x;
             x = y;
             y = tempswap;
         }
+
         static void Main(string[] args)
         {
             //  4.04.2022
@@ -160,7 +175,7 @@ namespace pbinfo
             //P618();
             //P180();
             //P513();
-            P1608();
+            //P1608();
 
 
         }
@@ -2100,14 +2115,30 @@ namespace pbinfo
         private static void P1608()
         {
             int n = int.Parse(Console.ReadLine());
-            string[] d = Console.ReadLine().Split(' ');
+            string[] s = Console.ReadLine().Split(' ');
             int[] v = new int[n];
             for (int i = 0; i < n; i++)
             {
-                v[i] = int.Parse(d[i]);
-
+                v[i] = int.Parse(s[i]);
             }
-
+            bool sort;
+            do
+            {
+                sort = true;
+                for (int i = 0; i < n - 1; i++)
+                {
+                    if (divP1608(v[i]) < divP1608(v[i + 1]))
+                    {
+                        int aux = v[i];
+                        v[i] = v[i + 1];
+                        v[i + 1] = aux;
+                        sort = false;
+                    }
+                }
+            }
+            while (!sort);
+            foreach (int x in v)
+                Console.Write(x + " ");
         }
         private static void P513()
         {
