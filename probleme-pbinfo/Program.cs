@@ -11,6 +11,12 @@ namespace pbinfo
 {
     internal class Program
     {
+        static void SwapP180(ref int x, ref int y)
+        {
+            int tempswap = x;
+            x = y;
+            y = tempswap;
+        }
         static void Main(string[] args)
         {
             //  4.04.2022
@@ -86,11 +92,6 @@ namespace pbinfo
             //P1002
 
 
-            
-
-
-
-
             //Algoritmi elementari
 
             //P860();
@@ -157,6 +158,9 @@ namespace pbinfo
             //P510();
             //P272();
             //P618();
+            //P180();
+            //P513();
+            P1608();
 
 
         }
@@ -2093,6 +2097,91 @@ namespace pbinfo
         }
 
         // Vectori
+        private static void P1608()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] d = Console.ReadLine().Split(' ');
+            int[] v = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(d[i]);
+
+            }
+
+        }
+        private static void P513()
+        {
+            string[] s = Console.ReadLine().Split(' ');
+            int n = int.Parse(s[0]);
+            int k = int.Parse(s[1]);
+            int temp = 0;
+            string[] d = Console.ReadLine().Split(' ');
+            int[] v = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(d[i]);
+            }
+            for (int l = 0; l < k; l++)
+            {
+                for (int i = l; i < n; i++)
+                {
+                    for (int j = i; j < n; j += k)
+                    {
+                        if (v[i] > v[j])
+                        {
+                            temp = v[i];
+                            v[i] = v[j];
+                            v[j] = temp;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+        }
+        private static void P180()
+        {
+                int n = int.Parse(Console.ReadLine());
+                string[] d = Console.ReadLine().Split(' ');
+                int min = int.MaxValue;
+                int max = int.MinValue;
+                int imin = 0, imax = 0;
+                int[] v = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    v[i] = int.Parse(d[i]);
+                    if (v[i] < min)
+                    {
+                        min = v[i];
+                        imin = i;
+                    }
+                    if (v[i] > max)
+                    {
+                        max = v[i];
+                        imax = i;
+                    }
+                }
+                if (imin > imax)
+                {
+                    SwapP180(ref imin, ref imax);
+                }
+                for (int i = imin; i < imax; i++)
+                {
+                    for (int j = i + 1; j <= imax; j++)
+                    {
+                        if (v[i] > v[j])
+                        {
+                            SwapP180(ref v[i], ref v[j]);
+                        }
+                    }
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    Console.Write(v[i] + " ");
+                }
+        }
         private static void P618()
         {
             int n = int.Parse(Console.ReadLine());
