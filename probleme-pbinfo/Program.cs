@@ -11,7 +11,22 @@ namespace pbinfo
 {
     internal class Program
     {
-            private static int divP1608(int x)
+        private  static bool PatratPerfect(int x)
+        {
+            bool b = false;
+            for(int i = 1; i * i <= x; i++)
+            {
+                if (i * i == x)
+                    b = true;
+                else
+                    b = false;
+            }
+            if (b)
+                return true;
+            else
+                return false;
+        }
+        private static int div(int x)
         {
             int cnt = 0;
             for (int i = 1; i * i <= x; i++)
@@ -25,7 +40,7 @@ namespace pbinfo
             }
             return cnt;
         }
-            static void SwapP180(ref int x, ref int y)
+        static void Swap(ref int x, ref int y)
         {
             int tempswap = x;
             x = y;
@@ -176,6 +191,7 @@ namespace pbinfo
             //P180();
             //P513();
             //P1608();
+            //P183();
 
 
         }
@@ -2112,6 +2128,32 @@ namespace pbinfo
         }
 
         // Vectori
+        
+        private static void P183()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] s = Console.ReadLine().Split(' ');
+            int[] v = new int[n];
+             
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(s[i]);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (PatratPerfect(v[i]) && PatratPerfect(v[j]) && v[j] < v[i])
+                    {
+                        Swap(ref v[i], ref v[j]);
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+        }
         private static void P1608()
         {
             int n = int.Parse(Console.ReadLine());
@@ -2127,7 +2169,7 @@ namespace pbinfo
                 sort = true;
                 for (int i = 0; i < n - 1; i++)
                 {
-                    if (divP1608(v[i]) < divP1608(v[i + 1]))
+                    if (div(v[i]) < div(v[i + 1]))
                     {
                         int aux = v[i];
                         v[i] = v[i + 1];
@@ -2196,7 +2238,7 @@ namespace pbinfo
                 }
                 if (imin > imax)
                 {
-                    SwapP180(ref imin, ref imax);
+                    Swap(ref imin, ref imax);
                 }
                 for (int i = imin; i < imax; i++)
                 {
@@ -2204,7 +2246,7 @@ namespace pbinfo
                     {
                         if (v[i] > v[j])
                         {
-                            SwapP180(ref v[i], ref v[j]);
+                            Swap(ref v[i], ref v[j]);
                         }
                     }
                 }
