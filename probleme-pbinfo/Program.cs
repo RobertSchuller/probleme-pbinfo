@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace pbinfo
 {
@@ -192,6 +193,9 @@ namespace pbinfo
             //P513();
             //P1608();
             //P183();
+            //P241();
+            //P3824();
+            P250();
 
 
         }
@@ -2128,7 +2132,144 @@ namespace pbinfo
         }
 
         // Vectori
-        
+        private static void P250()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] d = Console.ReadLine().Split(' ');
+            int m = int.Parse(Console.ReadLine());
+            string[] s = Console.ReadLine().Split(' ');
+            int k = n + m;
+            int[] v = new int[n];
+            int[] v1 = new int[m];
+            int[] c = new int[k];
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(d[i]);
+            }
+            for (int j = 0; j < m; j++)
+            {
+                v1[j] = int.Parse(s[j]);
+            }
+            for (int i = 0; i < n; i++)
+            {
+                c[i] = v[i];
+            }
+            int e = 0;
+            for (int j = n; j < k; j++)
+            {
+                c[j] = v1[e];
+                e++;
+            }
+            for (int i = 0; i < k; i++)
+            {
+                int p = i;
+                while (p > 0 && c[p] < c[p - 1])
+                {
+                    int aux = c[p];
+                    c[p] = c[p - 1];
+                    c[p - 1] = aux;
+                    p--;
+                }
+            }
+            for (int i = 0; i < k - 1; i++)
+            {
+                if (c[i] == c[i + 1])
+                {
+                    continue;
+                }
+                else
+                Console.Write(c[i] + " ");
+            }
+            for (int i = k - 1; i < k; i++)
+            {
+                Console.Write(c[i]);
+            }
+
+
+        }
+        private static void P3824()
+        {
+            string[] d = Console.ReadLine().Split(' ');
+            int n = int.Parse(d[0]);
+            string[] s = Console.ReadLine().Split(' ');
+            int m = int.Parse(s[0]);
+            int[] x = new int[n];
+            int[] y = new int[m];
+            int p = 0;
+            int cnt = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                x[p] = int.Parse(d[i]);
+                p++;
+            }
+            p = 0;
+            for (int j = 1; j <= m; j++)
+            {
+                y[p] = int.Parse(s[j]);
+                p++;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (x[i] == y[j])
+                    {
+                        cnt++;
+                    }
+                }
+            }
+            Console.WriteLine(cnt);
+
+
+
+        }
+        private static void P241()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] d = Console.ReadLine().Split(' ');
+            int m = int.Parse(Console.ReadLine());
+            string[] s = Console.ReadLine().Split(' ');
+            int k = n + m;
+            int[] v = new int[n];
+            int[] v1 = new int[m];
+            int[] c = new int[k];
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(d[i]);
+            }
+            for (int j = 0; j < m; j++)
+            {
+                v1[j] = int.Parse(s[j]);
+            }
+            for(int i = 0; i < n; i++)
+            {
+                c[i] = v[i];
+            }
+            int e = 0;
+            for(int j = n; j < k; j++)
+            {
+                c[j] = v1[e];
+                e++;
+            }
+            for(int i = 1; i < k; i++)
+            {
+                int p = i;
+                while (p > 0 && c[p] < c[p - 1])
+                {
+                    int aux = c[p];
+                    c[p] = c[p - 1];
+                    c[p - 1] = aux;
+                    p--;
+                }
+            }
+            for (int i = 0; i < k; i++)
+            {
+                if (i % 10 == 9)
+                    Console.Write(c[i] + "\n");
+                else
+                    Console.Write(c[i] + " ");
+            }
+        }
         private static void P183()
         {
             int n = int.Parse(Console.ReadLine());
