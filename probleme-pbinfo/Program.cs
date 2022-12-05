@@ -47,7 +47,20 @@ namespace pbinfo
             x = y;
             y = tempswap;
         }
-
+        private static void Sort(int[] v , int n)
+        {
+            for(int i = 1; i < n; i++)
+            {
+                int p = i;
+                while (p > 0 && v[p] < v[p - 1])
+                {
+                    int aux = v[p];
+                    v[p] = v[p - 1];
+                    v[p - 1] = aux;
+                    p--;
+                }
+            }
+        }
         static void Main(string[] args)
         {
             //  4.04.2022
@@ -195,7 +208,8 @@ namespace pbinfo
             //P183();
             //P241();
             //P3824();
-            P250();
+            //P250();
+            P2276();
 
 
         }
@@ -2132,6 +2146,75 @@ namespace pbinfo
         }
 
         // Vectori
+        private static void P2276()
+        {
+            
+            string[] d = Console.ReadLine().Split(' ');
+            int n = int.Parse(d[0]);
+            int T = int.Parse(d[1]);
+            string[] s = Console.ReadLine().Split(' ');
+            int[] v = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(s[i]);
+            }
+            Sort(v, n);
+            int x = 0, y = 0;
+            int vMin(int a)
+            {
+                int st = 0, dr = n - 1, m;
+                int poz = -1;
+                while (st <= dr)
+                {
+                    m = (st + dr) / 2;
+                    if (v[m] >= a)
+                    {
+                        poz = m;
+                        dr = m - 1;
+                    }
+                    else
+                        st = m + 1;
+                }
+                return poz;
+            }
+            int vMax(int a)
+            {
+                int st = 0, dr = n - 1, m;
+                int poz = -1;
+                while (st <= dr)
+                {
+                    m = (st + dr) / 2;
+                    if (v[m] <= a)
+                    {
+                        poz = m;
+                        st = m + 1;
+                    }
+                    else
+                        dr = m - 1;
+                }
+                return poz;
+            }
+            int[] k = new int[T];
+            for (int i = 0; i < T; i++)
+            {
+                string[] e = Console.ReadLine().Split(' ');
+                x = int.Parse(e[0]);
+                y = int.Parse(e[1]);
+                int p = vMin(x);
+                int p1 = vMax(y);
+                if (p == -1)
+                {
+                    k[i] = 0;
+                }
+                else
+                {
+                    k[i] = p1 - p + 1;
+                }
+            }
+            foreach(int w in k)
+                Console.WriteLine(w);
+
+        }
         private static void P250()
         {
             int n = int.Parse(Console.ReadLine());
